@@ -22,6 +22,12 @@ class Market
     end
   end
 
+  def quantity(item)
+    @vendors.sum do |vendor|
+      vendor.check_stock(item)
+    end
+  end
+
   def sorted_item_list
     sorted_item_list = []
     @vendors.each do |vendor|
@@ -34,6 +40,13 @@ class Market
     sorted_item_list.uniq.sort
   end
 
+  def total_inventory
+    total_inventory_items.map do |item, attributes|
+      total_inventory_items[item] = quantity_and_vendors(item)
+    end
+  end
+
+
   def total_inventory_items
     total_inventory_items = {}
     @vendors.each do |vendor|
@@ -43,6 +56,13 @@ class Market
     end
     total_inventory_items.uniq.to_h
   end
+
+  def quantity_and_vendors(item)
+    quantity_and_vendors = {}
+    quantity_and_vendors[:quantity] =
+    quantity_and_vendors[:vendors] = vendors_that_sell(item)
+  end
+
 
   def over_stocked_items
 

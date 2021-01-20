@@ -98,14 +98,19 @@ class MarketTest < Minitest::Test
       @item3 => {},
       @item4 => {}}
     expect2 = {
-      @item1 => {:quantity => 110, :vendors => [@vendor1, @vendor3]},
+      @item1 => {:quantity => 100, :vendors => [@vendor1, @vendor3]},
       @item2 => {:quantity => 7, :vendors => [@vendor1]},
-      @item3 => {:quantity => 75, :vendors => [@vendor2, @vendor3]},
+      @item3 => {:quantity => 35, :vendors => [@vendor2, @vendor3]},
       @item4 => {:quantity => 50, :vendors => [@vendor2]}}
 
     assert_equal expect, @market.sorted_item_list
     assert_equal true, @market.item_duplicated?(@item1)
     assert_equal false, @market.item_duplicated?(@item4)
     assert_equal expect1, @market.total_inventory_items
+    assert_equal 100, @market.quantity(@item1)
+    assert_equal 7, @market.quantity(@item2)
+    assert_equal 35, @market.quantity(@item3)
+    assert_equal 50, @market.quantity(@item4)
+    assert_equal expect1, @market.total_inventory
   end
 end
