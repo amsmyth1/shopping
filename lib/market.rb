@@ -58,8 +58,14 @@ class Market
   end
 
 
-  def over_stocked_items
-
+  def overstocked_items
+    overstocked_items = []
+    total_inventory.each do |item, attributes|
+      if (total_inventory[item][:quantity] > 50) && (item_duplicated?(item) == true)
+        overstocked_items << item
+      end
+    end
+    overstocked_items
   end
 
   def item_duplicated?(item)
