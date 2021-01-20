@@ -106,7 +106,6 @@ class MarketTest < Minitest::Test
     assert_equal expect, @market.sorted_item_list
     assert_equal true, @market.item_duplicated?(@item1)
     assert_equal false, @market.item_duplicated?(@item4)
-    assert_equal expect1, @market.total_inventory_items
     assert_equal 100, @market.quantity(@item1)
     assert_equal 7, @market.quantity(@item2)
     assert_equal 35, @market.quantity(@item3)

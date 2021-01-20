@@ -50,17 +50,6 @@ class Market
     total_inventory_items.uniq.to_h
   end
 
-
-  def total_inventory_items
-    total_inventory_items = {}
-    @vendors.each do |vendor|
-      vendor.inventory.each do |item, quant|
-        total_inventory_items[item] = {}
-      end
-    end
-    total_inventory_items.uniq.to_h
-  end
-
   def quantity_and_vendors(item)
     quantity_and_vendors = {}
     quantity_and_vendors[:quantity] = quantity(item)
