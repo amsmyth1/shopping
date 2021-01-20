@@ -41,9 +41,13 @@ class Market
   end
 
   def total_inventory
-    total_inventory_items.map do |item, attributes|
-      total_inventory_items[item] = quantity_and_vendors(item)
+    total_inventory_items = {}
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quant|
+        total_inventory_items[item] = quantity_and_vendors(item)
+      end
     end
+    total_inventory_items.uniq.to_h
   end
 
 
@@ -59,8 +63,9 @@ class Market
 
   def quantity_and_vendors(item)
     quantity_and_vendors = {}
-    quantity_and_vendors[:quantity] =
+    quantity_and_vendors[:quantity] = quantity(item)
     quantity_and_vendors[:vendors] = vendors_that_sell(item)
+    quantity_and_vendors
   end
 
 

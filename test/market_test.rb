@@ -111,6 +111,6 @@ class MarketTest < Minitest::Test
     assert_equal 7, @market.quantity(@item2)
     assert_equal 35, @market.quantity(@item3)
     assert_equal 50, @market.quantity(@item4)
-    assert_equal expect1, @market.total_inventory
+    assert_equal expect2, @market.total_inventory
   end
 end
