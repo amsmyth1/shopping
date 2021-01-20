@@ -81,4 +81,28 @@ class Market
       false
     end
   end
+
+  def sell(item, quantity)
+    if quantity(item) <= 0
+      false
+    else
+      true
+    end
+  end
+
+  def sell_vendor_item(item, quantity)
+    quantity_count = quantity
+    total_inventory[item][:vendors].each do |vendor|
+      if quantity_count == 0
+        return
+      elsif vendor.check_stock(item) >= quantity_count
+        vendor.sell(item, quantity_count)
+        quantity_count = 0
+      elsif vendor.check_stock(item) < quantity_count
+        vendor.sell(item, quantity_count)
+        quantity_count -= vendor.check_stock(item)
+        # require 'pry'; binding.pry
+      end
+    end
+  end
 end
