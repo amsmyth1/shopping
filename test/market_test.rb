@@ -68,8 +68,44 @@ class MarketTest < Minitest::Test
 
     expect = ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"]
 
+    expect2 = {
+      @item1 => {:quantity => 110, :vendors => [@vendor1, @vendor3]},
+      @item2 => {:quantity => 7, :vendors => [@vendor1]},
+      @item3 => {:quantity => 75, :vendors => [@vendor2, @vendor3]},
+      @item4 => {:quantity => 50, :vendors => [@vendor2]}}
+
     assert_equal expect, @market.sorted_item_list
     assert_equal true, @market.item_duplicated?(@item1)
     assert_equal false, @market.item_duplicated?(@item4)
+  end
+
+  def test_total_inventory
+    @vendor1.stock(@item1, 35)
+    @vendor1.stock(@item2, 7)
+    @vendor2.stock(@item4, 50)
+    @vendor2.stock(@item3, 25)
+    @vendor3.stock(@item1, 65)
+    @vendor3.stock(@item3, 10)
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+
+    expect = ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"]
+
+    expect1 = {
+      @item1 => {},
+      @item2 => {},
+      @item3 => {},
+      @item4 => {}}
+    expect2 = {
+      @item1 => {:quantity => 110, :vendors => [@vendor1, @vendor3]},
+      @item2 => {:quantity => 7, :vendors => [@vendor1]},
+      @item3 => {:quantity => 75, :vendors => [@vendor2, @vendor3]},
+      @item4 => {:quantity => 50, :vendors => [@vendor2]}}
+
+    assert_equal expect, @market.sorted_item_list
+    assert_equal true, @market.item_duplicated?(@item1)
+    assert_equal false, @market.item_duplicated?(@item4)
+    assert_equal expect1, @market.total_inventory_items
   end
 end
