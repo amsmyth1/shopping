@@ -69,5 +69,7 @@ class MarketTest < Minitest::Test
     expect = ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"]
 
     assert_equal expect, @market.sorted_item_list
+    assert_equal true, @market.item_duplicated?(@item1)
+    assert_equal false, @market.item_duplicated?(@item4)
   end
 end
