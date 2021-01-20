@@ -27,14 +27,14 @@ class VendorTest < Minitest::Test
 
     assert_equal 0, @vendor.check_stock(@item1)
 
-    @vendor.stock(item1, 30)
+    @vendor.stock(@item1, 30)
     expect = {@item1 => 30}
 
     assert_equal expect, @vendor.inventory
     assert_equal 30, @vendor.check_stock(@item1)
 
-    @vendor.stock(item1, 25)
-    @vendor.stock(item2, 12)
+    @vendor.stock(@item1, 25)
+    @vendor.stock(@item2, 12)
     expect = {@item1 => 55, @item2 => 12}
 
     assert_equal 55, @vendor.check_stock(@item1)
