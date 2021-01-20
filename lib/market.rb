@@ -33,4 +33,21 @@ class Market
     end
     sorted_item_list.uniq.sort
   end
+
+  def over_stocked_items
+  end
+
+  def item_duplicated?(item)
+    vendor_list = []
+    @vendors.each do |vendor|
+      if vendor.in_stock?(item)
+        vendor_list << vendor
+      end
+    end
+    if vendor_list.count > 1
+      true
+    else
+      false
+    end
+  end 
 end
