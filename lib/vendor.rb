@@ -17,6 +17,14 @@ class Vendor
   def potential_revenue
     @inventory.sum do |item, quantity|
       quantity * item.price
-    end 
+    end
+  end
+
+  def in_stock?(item)
+    if @inventory[item] > 0
+      true
+    else
+      false
+    end
   end
 end
